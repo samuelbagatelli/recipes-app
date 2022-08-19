@@ -4,16 +4,15 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesProvider from './context/RecipesProvider';
-import FoodRecipes from './components/FoodRecipes';
-import DrinkRecipes from './components/DrinkRecipes';
+import Recipes from './pages/Recipes';
 
 function App() {
   return (
     <RecipesProvider>
       <Switch>
         <div className="screen">
-          <Route path="/foods" component={ FoodRecipes } />
-          <Route path="/drinks" component={ DrinkRecipes } />
+          <Route path="/foods" component={ Recipes } />
+          <Route path="/drinks" component={ Recipes } />
         </div>
       </Switch>
     </RecipesProvider>

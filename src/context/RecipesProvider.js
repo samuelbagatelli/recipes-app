@@ -5,39 +5,57 @@ import RecipesContext from './RecipesContext';
 export default function RecipesProvider({ children }) {
   const [foodData, setFoodData] = useState(null);
   const [drinkData, setDrinkData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [foodCategory, setFoodCategory] = useState(null);
+  const [drinkCategory, setDrinkCategory] = useState(null);
 
   useEffect(() => {
     const foodApiRequest = async () => {
-      setLoading(true);
       try {
         const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
         const data = await response.json();
-        setFoodData(data);
+        setFoodData(data.meals);
       } catch (error) {
         console.log(error);
       }
-      setLoading(false);
     };
     const drinkApiRequest = async () => {
-      setLoading(true);
       try {
         const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
         const data = await response.json();
-        setDrinkData(data);
+        setDrinkData(data.drinks);
       } catch (error) {
         console.log(error);
       }
-      setLoading(false);
+    };
+    const foodCategoryRequest = async () => {
+      try {
+        const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+        const data = await response.json();
+        setFoodCategory(data.meals);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const drinkCategoryRequest = async () => {
+      try {
+        const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+        const data = await response.json();
+        setDrinkCategory(data.drinks);
+      } catch (error) {
+        console.log(error);
+      }
     };
     foodApiRequest();
     drinkApiRequest();
+    foodCategoryRequest();
+    drinkCategoryRequest();
   }, []);
 
   const context = {
     foodData,
     drinkData,
-    loading,
+    foodCategory,
+    drinkCategory,
   };
 
   return (
