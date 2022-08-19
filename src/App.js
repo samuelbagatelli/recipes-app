@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginProvider from './providers/LoginProvider';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
           <LoginProvider>
             <Login />
           </LoginProvider>
+        </Route>
+        <Route path="*">
+          <NotFound />
         </Route>
       </Switch>
     </div>

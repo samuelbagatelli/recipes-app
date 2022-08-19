@@ -5,7 +5,7 @@ import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
 
 describe('Tests the Login page', () => {
-  afterEach(cleanup);
+  beforeEach(cleanup);
   it('Should render the page', () => {
     renderWithRouter(
       <App />,
@@ -24,11 +24,23 @@ describe('Tests the Login page', () => {
     const emailInput = screen.getByTestId('email-input');
     userEvent.type(emailInput, 'teste@teste.com');
     const passwordInput = screen.getByTestId('password-input');
-    userEvent.type(passwordInput, 'senha1');
+    userEvent.type(passwordInput, 'senha123');
 
     const button = screen.getByTestId('login-submit-btn');
     userEvent.click(button);
 
-    expect(history.location.pathname).toBe('/');
+    expect(history.location.pathname).toBe('/foods');
+  });
+
+  it('Should call the handleSubmit function', () => {
+    renderWithRouter(<App />);
+
+    const emailInput = screen.getByTestId('email-input');
+    userEvent.type(emailInput, 'email@teste.com');
+    const passwordInput = screen.getByTestId('password-input');
+    userEvent.type(passwordInput, 'senha1');
+
+    const teste = localStorage.getItem('user');
+    expect(teste).toBe('{ "email": "teste@teste.com" }');
   });
 });

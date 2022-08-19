@@ -1,7 +1,11 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import LoginContext from '../context/LoginContext';
 
 function Login() {
+  const history = useHistory();
+
   const handleChange = ({ target }, setter) => {
     const { value } = target;
     setter(value);
@@ -41,8 +45,7 @@ function Login() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
 
-    // const { history } = props;
-    // history.push('/');
+    history.push('/foods');
   };
 
   return (
@@ -82,5 +85,11 @@ function Login() {
     </div>
   );
 }
+
+Login.propTypes = {
+  history: {
+    push: PropTypes.func,
+  },
+}.isRequired;
 
 export default Login;
