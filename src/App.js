@@ -8,7 +8,6 @@ import LoginProvider from './providers/LoginProvider';
 function App() {
   return (
     <div className="screen">
-      {/* <div className="meals"> */}
       <Switch>
         <Route exact path="/">
           <LoginProvider>
@@ -16,7 +15,6 @@ function App() {
           </LoginProvider>
         </Route>
       </Switch>
-      {/* </div> */}
     </div>
   );
 }

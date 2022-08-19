@@ -2,8 +2,6 @@ import React, { useContext } from 'react';
 import LoginContext from '../context/LoginContext';
 
 function Login() {
-  const handleSubmit = (event) => event.preventDefault();
-
   const handleChange = ({ target }, setter) => {
     const { value } = target;
     setter(value);
@@ -34,6 +32,17 @@ function Login() {
     if (emailDisable() || passwordDisable()) {
       return true;
     }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    localStorage.setItem('user', `{ "email": "${emailInput}" }`);
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+
+    // const { history } = props;
+    // history.push('/');
   };
 
   return (
