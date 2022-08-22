@@ -9,15 +9,24 @@ import NotFound from './pages/NotFound';
 
 function App() {
   return (
-    <RecipesProvider>
+    <div className="screen">
       <Switch>
-        <div className="screen">
-          <Route path="/foods" component={ Recipes } />
-          <Route path="/drinks" component={ Recipes } />
-        </div>
+        <LoginProvider>
+          <RecipesProvider>
+            <Route path="/foods/:foodsID" component={ Recipes } />
+            <Route path="/drinks/:drinksID" component={ Recipes } />
+            <Route exact path="/foods" component={ Recipes } />
+            <Route exact path="/drinks" component={ Recipes } />
+          </RecipesProvider>
+          <Route exact path="/">
+            <Login />
+          </Route>
+        </LoginProvider>
+        <Route path="*">
+          <NotFound />
+        </Route>
       </Switch>
-    </RecipesProvider>
+    </div>
   );
 }
-
 export default App;
