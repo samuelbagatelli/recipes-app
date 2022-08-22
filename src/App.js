@@ -13,8 +13,10 @@ function App() {
       <Switch>
         <LoginProvider>
           <RecipesProvider>
-            <Route path="/foods" component={ Recipes } />
-            <Route path="/drinks" component={ Recipes } />
+            <Route path="/foods/:foodsID" component={ Recipes } />
+            <Route path="/drinks/:drinksID" component={ Recipes } />
+            <Route exact path="/foods" component={ Recipes } />
+            <Route exact path="/drinks" component={ Recipes } />
           </RecipesProvider>
           <Route exact path="/">
             <Login />
@@ -27,5 +29,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
