@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 
 export default function Recipes() {
@@ -20,15 +20,15 @@ export default function Recipes() {
   const { location: { pathname } } = history;
 
   const fetchCategories = async (category) => {
-    if (pathname === '/foods') {
+    if (pathname.includes('/foods')) {
       try {
-        if (pathname === '/foods') {
+        if (pathname.includes('/foods')) {
           const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
           const data = await response.json();
           setFoodFilteredData(data.meals);
         }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     } else {
       try {
@@ -36,7 +36,7 @@ export default function Recipes() {
         const data = await response.json();
         setDrinkFilteredData(data.drinks);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     }
     setFilterActive(!filterActive);
@@ -44,35 +44,39 @@ export default function Recipes() {
 
   const renderRecipes = () => {
     const quantLimit = 12;
-    if (pathname === '/foods') {
+    if (pathname.includes('/foods')) {
       const listData = filterActive ? foodFilteredData : foodData;
       return listData
         .filter((_recipe, index) => index < quantLimit)
         .map((recipe, index) => (
-          <section data-testid={ `${index}-recipe-card` } key={ recipe.idMeal }>
-            <img
-              src={ recipe.strMealThumb }
-              alt={ `foto da receita ${recipe.strMeal}` }
-              data-testid={ `${index}-card-img` }
-              className="w-25"
-            />
-            <span data-testid={ `${index}-card-name` }>{ recipe.strMeal }</span>
-          </section>
+          <Link to={ `/foods/${recipe.idMeal}` } key={ recipe.idMeal }>
+            <section data-testid={ `${index}-recipe-card` }>
+              <img
+                src={ recipe.strMealThumb }
+                alt={ `foto da receita ${recipe.strMeal}` }
+                data-testid={ `${index}-card-img` }
+                className="w-25"
+              />
+              <span data-testid={ `${index}-card-name` }>{ recipe.strMeal }</span>
+            </section>
+          </Link>
         ));
-    } if (pathname === '/drinks') {
+    } if (pathname.includes('/drinks')) {
       const listData = filterActive ? drinkFilteredData : drinkData;
       return listData
         .filter((_recipe, index) => index < quantLimit)
         .map((recipe, index) => (
-          <section data-testid={ `${index}-recipe-card` } key={ recipe.idDrink }>
-            <img
-              src={ recipe.strDrinkThumb }
-              alt={ `foto da receita ${recipe.strDrink}` }
-              data-testid={ `${index}-card-img` }
-              className="w-25"
-            />
-            <span data-testid={ `${index}-card-name` }>{ recipe.strDrink }</span>
-          </section>
+          <Link to={ `/drinks/${recipe.idDrink}` } key={ recipe.idDrink }>
+            <section data-testid={ `${index}-recipe-card` }>
+              <img
+                src={ recipe.strDrinkThumb }
+                alt={ `foto da receita ${recipe.strDrink}` }
+                data-testid={ `${index}-card-img` }
+                className="w-25"
+              />
+              <span data-testid={ `${index}-card-name` }>{ recipe.strDrink }</span>
+            </section>
+          </Link>
         ));
     }
   };
@@ -80,8 +84,8 @@ export default function Recipes() {
   const renderCategories = () => {
     const quantLimit = 5;
     let category = null;
-    if (pathname === '/foods') category = foodCategory;
-    if (pathname === '/drinks') category = drinkCategory;
+    if (pathname.includes('/foods')) category = foodCategory;
+    if (pathname.includes('/drinks')) category = drinkCategory;
     return category
       .filter((_recipe, index) => index < quantLimit)
       .map(({ strCategory }, index) => (
@@ -101,7 +105,12 @@ export default function Recipes() {
   };
 
   return (
-    <>
+    <div data-testid="food-spade">
+      <div>
+        {
+          drinkData && foodData ? renderRecipes() : null
+        }
+      </div>
       <div>
         { foodCategory && drinkCategory ? renderCategories() : null }
         <button
@@ -115,11 +124,6 @@ export default function Recipes() {
           All
         </button>
       </div>
-      <div>
-        {
-          drinkData && foodData ? renderRecipes() : null
-        }
-      </div>
-    </>
+    </div>
   );
 }

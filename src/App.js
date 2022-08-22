@@ -11,8 +11,16 @@ function App() {
     <RecipesProvider>
       <Switch>
         <div className="screen">
-          <Route path="/foods" component={ Recipes } />
-          <Route path="/drinks" component={ Recipes } />
+          <Route exact path="/foods" component={ Recipes } />
+          <Route exact path="/drinks" component={ Recipes } />
+          <Route
+            path="/foods/:foodID"
+            render={ (props) => <Recipes { ...props } id="12" /> }
+          />
+          <Route
+            path="/drinks/:drinkID"
+            render={ (props) => <Recipes { ...props } id="12" /> }
+          />
         </div>
       </Switch>
     </RecipesProvider>
