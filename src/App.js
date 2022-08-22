@@ -4,22 +4,22 @@ import Login from './pages/Login';
 import './App.css';
 import RecipesProvider from './context/RecipesProvider';
 import Recipes from './pages/Recipes';
-import LoginProvider from './providers/LoginProvider';
+import LoginProvider from './context/LoginProvider';
 import NotFound from './pages/NotFound';
 
 function App() {
   return (
     <div className="screen">
       <Switch>
-        <RecipesProvider>
-          <Route path="/foods" component={ Recipes } />
-          <Route path="/drinks" component={ Recipes } />
-        </RecipesProvider>
-        <Route exact path="/">
-          <LoginProvider>
+        <LoginProvider>
+          <RecipesProvider>
+            <Route path="/foods" component={ Recipes } />
+            <Route path="/drinks" component={ Recipes } />
+          </RecipesProvider>
+          <Route exact path="/">
             <Login />
-          </LoginProvider>
-        </Route>
+          </Route>
+        </LoginProvider>
         <Route path="*">
           <NotFound />
         </Route>
