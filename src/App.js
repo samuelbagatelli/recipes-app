@@ -1,21 +1,30 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-
+import { Switch, Route } from 'react-router-dom';
+import Login from './pages/Login';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesProvider from './context/RecipesProvider';
 import Recipes from './pages/Recipes';
+import LoginProvider from './context/LoginProvider';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
-    <RecipesProvider>
+    <div className="screen">
       <Switch>
-        <div className="screen">
-          <Route path="/foods" component={ Recipes } />
-          <Route path="/drinks" component={ Recipes } />
-        </div>
+        <LoginProvider>
+          <RecipesProvider>
+            <Route path="/foods" component={ Recipes } />
+            <Route path="/drinks" component={ Recipes } />
+          </RecipesProvider>
+          <Route exact path="/">
+            <Login />
+          </Route>
+        </LoginProvider>
+        <Route path="*">
+          <NotFound />
+        </Route>
       </Switch>
-    </RecipesProvider>
+    </div>
   );
 }
 
