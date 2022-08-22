@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import HeaderContext from '../context/HeaderContext';
 import RecipesContext from '../context/RecipesContext';
+import Drinks from './Drinks';
+import Foods from './Foods';
 
 export default function Recipes() {
   const { foodData,
@@ -16,6 +19,7 @@ export default function Recipes() {
     filterValue,
     setFilterValue,
   } = useContext(RecipesContext);
+  const { searching } = useContext(HeaderContext);
   const history = useHistory();
   const { location: { pathname } } = history;
 
@@ -106,9 +110,11 @@ export default function Recipes() {
 
   return (
     <div>
+      { pathname === '/foods' && <Foods /> }
+      { pathname === '/drinks' && <Drinks /> }
       <div>
         {
-          drinkData && foodData ? renderRecipes() : null
+          drinkData && foodData && !searching ? renderRecipes() : null
         }
       </div>
       <div>

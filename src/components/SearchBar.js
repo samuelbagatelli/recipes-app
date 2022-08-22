@@ -3,7 +3,10 @@ import { useHistory } from 'react-router-dom';
 import HeaderContext from '../context/HeaderContext';
 
 function SearchBar() {
-  const { DataFilter, RequestMeal, RequestDrink } = useContext(HeaderContext);
+  const { DataFilter,
+    RequestMeal,
+    RequestDrink,
+    setSearching } = useContext(HeaderContext);
   const { location: { pathname } } = useHistory();
   const MANAGE_REQUEST = pathname === '/foods' ? RequestMeal : RequestDrink;
 
@@ -46,7 +49,10 @@ function SearchBar() {
         <button
           type="button"
           data-testid="exec-search-btn"
-          onClick={ MANAGE_REQUEST }
+          onClick={ () => {
+            MANAGE_REQUEST();
+            setSearching(true);
+          } }
         >
           Search
         </button>
