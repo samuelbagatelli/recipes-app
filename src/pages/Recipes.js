@@ -55,7 +55,7 @@ export default function Recipes() {
                 src={ recipe.strMealThumb }
                 alt={ `foto da receita ${recipe.strMeal}` }
                 data-testid={ `${index}-card-img` }
-                className="w-25"
+                className="tamanho"
               />
               <span data-testid={ `${index}-card-name` }>{ recipe.strMeal }</span>
             </section>
@@ -72,7 +72,7 @@ export default function Recipes() {
                 src={ recipe.strDrinkThumb }
                 alt={ `foto da receita ${recipe.strDrink}` }
                 data-testid={ `${index}-card-img` }
-                className="w-25"
+                className="tamanho"
               />
               <span data-testid={ `${index}-card-name` }>{ recipe.strDrink }</span>
             </section>
@@ -105,7 +105,7 @@ export default function Recipes() {
   };
 
   return (
-    <div data-testid="food-spade">
+    <div>
       <div>
         {
           drinkData && foodData ? renderRecipes() : null

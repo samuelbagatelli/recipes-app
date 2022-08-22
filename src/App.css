@@ -11,6 +11,10 @@ body {
   width: 360px;
 }
 
+.tamanho {
+  width: 50px;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
