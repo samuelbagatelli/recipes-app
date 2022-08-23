@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import LoginContext from '../context/LoginContext';
+import AppContext from '../context/AppContext';
 
 function Login() {
   const history = useHistory();
@@ -16,7 +16,7 @@ function Login() {
     setEmailInput,
     passwordInput,
     setPasswordInput,
-  } = useContext(LoginContext);
+  } = useContext(AppContext);
 
   const emailDisable = () => {
     if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(emailInput)) {

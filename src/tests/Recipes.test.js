@@ -76,17 +76,10 @@ describe('Test case for recipes pages', () => {
     expect(otherFilter).toBeDisabled();
   });
   test('API is beeing fetched', async () => {
-    const api = () => {
-      globalThis.fetch = jest.fn(() => Promise.resolve({
-        json: () => Promise.resolve(meals),
-      }));
-    };
-    api();
-
     const { history } = renderWithRouter(<App />);
     history.push('/foods');
     await waitFor(() => {
-      const lastFood = screen.getByAltText(/foto da receita koshari/i);
+      const lastFood = screen.getByAltText(/foto da receita lasagne/i);
       expect(lastFood).toBeInTheDocument();
     });
   });

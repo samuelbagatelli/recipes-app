@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import HeaderContext from '../context/HeaderContext';
-import RecipesContext from '../context/RecipesContext';
+import AppContext from '../context/AppContext';
 import Drinks from './Drinks';
 import Foods from './Foods';
 
@@ -18,8 +17,8 @@ export default function Recipes() {
     setDrinkFilteredData,
     filterValue,
     setFilterValue,
-  } = useContext(RecipesContext);
-  const { searching } = useContext(HeaderContext);
+  } = useContext(AppContext);
+  const { searching } = useContext(AppContext);
   const history = useHistory();
   const { location: { pathname } } = history;
 

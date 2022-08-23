@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import HeaderContext from '../context/HeaderContext';
+import AppContext from '../context/AppContext';
 
 function SearchBar() {
   const { DataFilter,
     RequestMeal,
     RequestDrink,
-    setSearching } = useContext(HeaderContext);
+    setSearching } = useContext(AppContext);
   const { location: { pathname } } = useHistory();
   const MANAGE_REQUEST = pathname === '/foods' ? RequestMeal : RequestDrink;
 

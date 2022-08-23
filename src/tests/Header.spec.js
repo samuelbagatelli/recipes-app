@@ -1,13 +1,9 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { screen, waitFor } from '@testing-library/react';
-import renderWithRouter from './helpers/renderWithRouter';
-import HeaderProvider from '../providers/HeaderProvider';
+import { screen } from '@testing-library/react';
 import RenderForHeaderProvider from './helpers/RenderForHeaderProvider';
 
-import App from '../App';
 import Header from '../components/Header';
-
 
 describe('Teste do componente "Header"', () => {
   it('Verifica se todos os elementos estão sendo renderizados', () => {
@@ -25,18 +21,18 @@ describe('Teste do componente "Header"', () => {
   });
 
   it('Verifica o botão de busca', () => {
-      RenderForHeaderProvider(<Header />, '/foods');
+    RenderForHeaderProvider(<Header />, '/foods');
 
-      expect(screen.queryByTestId('search-input')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('search-input')).not.toBeInTheDocument();
 
-      userEvent.click(screen.getByTestId('search-top-btn'));
-      expect(screen.queryByTestId('search-input')).toBeInTheDocument();
+    userEvent.click(screen.getByTestId('search-top-btn'));
+    expect(screen.queryByTestId('search-input')).toBeInTheDocument();
   });
-  
-    it('Verifica se o botão de busca não é exibido na página Favorite Recipes', () => {
-        RenderForHeaderProvider(<Header />, '/favorite-recipes');
-        expect(screen.queryByTestId('search-top-btn')).not.toBeInTheDocument();
-    });
+
+  it('Verifica se o botão de busca não é exibido na página Favorite Recipes', () => {
+    RenderForHeaderProvider(<Header />, '/favorite-recipes');
+    expect(screen.queryByTestId('search-top-btn')).not.toBeInTheDocument();
+  });
 
   it('Verifica se o botão de busca não é exibido na páfina de perfil:', () => {
     RenderForHeaderProvider(<Header />, '/profile');
@@ -44,8 +40,7 @@ describe('Teste do componente "Header"', () => {
   });
 
   it('Verifica se o botão de busca não é exibido na página Done Recipes', () => {
-      RenderForHeaderProvider(<Header />, '/done-recipes');
-      expect(screen.queryByTestId('search-top-btn')).not.toBeInTheDocument();
+    RenderForHeaderProvider(<Header />, '/done-recipes');
+    expect(screen.queryByTestId('search-top-btn')).not.toBeInTheDocument();
   });
 });
-

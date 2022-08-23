@@ -1,14 +1,9 @@
 import React from 'react';
-import { Router } from 'react-router-dom';
-import { render } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 
 import RenderWithRouterAndHistory from './RenderWithRouterAndHistory';
 
-import HeaderProvider from '../../providers/HeaderProvider';
+import AppProvider from '../../provider/AppProvider';
 
-export default (component, route='/') => {
-  return RenderWithRouterAndHistory(
-    <HeaderProvider>{component}</HeaderProvider>, route,
-  );
-};
+export default (component, route = '/') => RenderWithRouterAndHistory(
+  <AppProvider>{component}</AppProvider>, route,
+);

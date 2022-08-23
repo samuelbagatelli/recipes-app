@@ -3,6 +3,11 @@ body {
   justify-content: center;
 }
 
+fieldset {
+  display: flex;
+  justify-content: center;
+}
+
 .screen {
   align-items: center;
   display: flex;

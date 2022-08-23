@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import HeaderContext from '../context/HeaderContext';
+import AppContext from '../context/AppContext';
 import Header from '../components/Header';
 import Card from '../components/Card';
 
 function Drinks() {
-  const { drinks } = useContext(HeaderContext);
+  const { drinks } = useContext(AppContext);
 
   if (drinks.length === 1) return <Redirect to={ `/drinks/${drinks[0].idDrink}` } />;
 
