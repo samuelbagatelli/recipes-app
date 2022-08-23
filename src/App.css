@@ -17,7 +17,7 @@ fieldset {
 }
 
 .tamanho {
-  width: 30px;
+  width: 15px;
 }
 
 .meals {
@@ -87,4 +87,12 @@ fieldset {
   100% {
     transform: rotate(-10deg);
   }
+}
+
+.footer {
+  align-items: center;
+  bottom: 0;
+  height: 100px;
+  position: fixed;
+  width: 100%;
 }

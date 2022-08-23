@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import Drinks from './Drinks';
 import Foods from './Foods';
+import Footer from '../components/Footer';
 
 export default function Recipes() {
   const { foodData,
@@ -129,6 +130,8 @@ export default function Recipes() {
           All
         </button>
       </div>
+      { !pathname.includes('/foods/') && !pathname.includes('/drinks/')
+        ? <Footer /> : null }
     </div>
   );
 }
