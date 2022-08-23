@@ -1,11 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Header from '../components/Header';
-import AppContext from '../context/AppContext';
 
 function Profile() {
-  const {
-    emailInput,
-  } = useContext(AppContext);
+  const emailInput = localStorage.getItem('user');
 
   return (
     <div>
