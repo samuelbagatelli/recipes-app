@@ -10,14 +10,15 @@ import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import AppProvider from './provider/AppProvider';
+import RecipeDetails from './components/RecipeDetails';
 
 function App() {
   return (
     <div className="screen">
       <AppProvider>
         <Switch>
-          <Route path="/foods/:foodsID" component={ Recipes } />
-          <Route path="/drinks/:drinksID" component={ Recipes } />
+          <Route path="/foods/:foodsID" component={ RecipeDetails } />
+          <Route path="/drinks/:drinksID" component={ RecipeDetails } />
           <Route exact path="/foods" component={ Recipes } />
           <Route exact path="/drinks" component={ Recipes } />
           <Route path="/profile" exact component={ Profile } />
