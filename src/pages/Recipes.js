@@ -19,6 +19,7 @@ export default function Recipes() {
     filterValue,
     setFilterValue,
     setSearching,
+    setRecipeID,
   } = useContext(AppContext);
   const { searching } = useContext(AppContext);
   const history = useHistory();

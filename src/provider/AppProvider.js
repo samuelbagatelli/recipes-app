@@ -21,12 +21,25 @@ function AppProvider({ children }) {
   const [drinkCategory, setDrinkCategory] = useState(null);
   const [filterActive, setFilterActive] = useState(false);
   const [filterValue, setFilterValue] = useState('');
-  const [recipeDetails, setRecipeDetails] = useState(null);
 
   useFetch('https://www.themealdb.com/api/json/v1/1/search.php?s=', setFoodData, 'meals');
   useFetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', setDrinkData, 'drinks');
   useFetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setFoodCategory, 'meals');
   useFetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', setDrinkCategory, 'drinks');
+  // useEffect(() => {
+  //   const asyncFetch = async () => {
+  //     try {
+  //       const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeID}`);
+  //       const data = await response.json();
+  //       setRecipeDetails(data.meals);
+  //       return [data];
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   asyncFetch();
+  // }, [recipeID]);
+  // useFetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeID}`, setRecipeDetails, 'meals');
 
   const Alert = 'Sorry, we haven\'t found any recipes for these filters.';
 
@@ -93,8 +106,6 @@ function AppProvider({ children }) {
     setDrinkFilteredData,
     filterValue,
     setFilterValue,
-    recipeDetails,
-    setRecipeDetails,
   };
 
   return (

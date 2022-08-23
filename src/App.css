@@ -13,7 +13,12 @@ fieldset {
   display: flex;
   height: 640px;
   justify-items: center;
+  margin-top: 3rem;
   width: 360px;
+}
+
+.alt-100 {
+  height: 100%;
 }
 
 .tamanho {

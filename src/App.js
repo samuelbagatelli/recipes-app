@@ -14,7 +14,7 @@ import RecipeDetails from './components/RecipeDetails';
 
 function App() {
   return (
-    <div className="screen">
+    <div className="screen overflow-auto">
       <AppProvider>
         <Switch>
           <Route path="/foods/:foodsID" component={ RecipeDetails } />
