@@ -9,6 +9,7 @@ function HeaderProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [searchFunction, setSearchFunction] = useState('');
   const [Filters, setFilters] = useState('');
+  const [searching, setSearching] = useState(false);
 
   const Alert = 'Sorry, we haven\'t found any recipes for these filters.';
 
@@ -52,11 +53,13 @@ function HeaderProvider({ children }) {
     meals,
     drinks,
     searchFunction,
+    searching,
     checkLength,
     Search,
     DataFilter,
     RequestMeal,
     RequestDrink,
+    setSearching,
   };
 
   return (

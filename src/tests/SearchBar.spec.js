@@ -22,11 +22,11 @@ describe('Testes do componente "SearchBar"', () => {
     const RadioFl = screen.getByTestId('first-letter-search-radio');
     expect(RadioFl.checked).not.toBe(true);
     userEvent.click(RadioFl);
-    expect(RadioIng.checked).toBe(false);
+    expect(RadioIng.checked).toBe(true);
     expect(radioName.checked).toBe(false);
     userEvent.click(radioName);
-    expect(RadioIng.checked).toBe(false);
-    expect(RadioFl.checked).toBe(false);
+    expect(RadioIng.checked).toBe(true);
+    expect(RadioFl.checked).toBe(true);
   });
 
   it(`Verifica a chamada a API`, async () => {
