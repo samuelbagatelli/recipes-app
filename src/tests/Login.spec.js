@@ -1,13 +1,12 @@
 import React from 'react';
-import { cleanup, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import renderWithRouter from './helpers/renderWithRouter';
+import RenderWithRouter from '../helpers/RenderWithRouter';
 
 describe('Tests the Login page', () => {
-  beforeEach(cleanup);
   it('Should render the page', () => {
-    renderWithRouter(
+    RenderWithRouter(
       <App />,
     );
 
@@ -17,7 +16,7 @@ describe('Tests the Login page', () => {
   });
 
   it('The form should work properly', () => {
-    const { history } = renderWithRouter(
+    const { history } = RenderWithRouter(
       <App />,
     );
 
@@ -33,7 +32,7 @@ describe('Tests the Login page', () => {
   });
 
   it('Should call the handleSubmit function', () => {
-    renderWithRouter(<App />);
+    RenderWithRouter(<App />);
 
     const emailInput = screen.getByTestId('email-input');
     userEvent.type(emailInput, 'email@teste.com');
