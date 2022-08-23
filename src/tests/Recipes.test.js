@@ -3,8 +3,9 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 
-import App from '../App';
 import renderWithRouter from '../helpers/RenderWithRouter';
+import { meals } from '../../cypress/mocks/meals';
+import App from '../App';
 
 describe('Test case for recipes pages', () => {
   afterEach(() => jest.clearAllMocks());
@@ -75,6 +76,13 @@ describe('Test case for recipes pages', () => {
     expect(otherFilter).toBeDisabled();
   });
   test('API is beeing fetched', async () => {
+    const api = () => {
+      globalThis.fetch = jest.fn(() => Promise.resolve({
+        json: () => Promise.resolve(meals),
+      }));
+    };
+    api();
+
     const { history } = renderWithRouter(<App />);
     history.push('/foods');
     await waitFor(() => {
