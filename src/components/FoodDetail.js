@@ -63,6 +63,7 @@ export default function FoodDetail(recepieDetails) {
         href={ strSource }
         target="_blank"
         rel="noreferrer"
+        data-testid="0-recomendation-card"
       >
         { `Link to ${strMeal} recipe` }
 
