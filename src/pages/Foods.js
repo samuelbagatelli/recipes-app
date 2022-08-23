@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import Header from '../components/Header';
-import HeaderContext from '../context/HeaderContext';
+import AppContext from '../context/AppContext';
 import Card from '../components/Card';
 
 function Foods() {
-  const { meals, checkLength } = useContext(HeaderContext);
+  const { meals, checkLength } = useContext(AppContext);
 
   const MaxRecipes = 12;
   return (

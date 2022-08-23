@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import HeaderContext from '../context/HeaderContext';
+import AppContext from '../context/AppContext';
 import SearchBar from './SearchBar';
 
 function Header() {
@@ -18,7 +18,7 @@ function Header() {
   const history = useHistory();
   const { location: { pathname } } = history;
 
-  const { searchFunction, Search } = useContext(HeaderContext);
+  const { searchFunction, Search } = useContext(AppContext);
 
   const pageToShowSearch = ['/foods', '/drinks'];
 
