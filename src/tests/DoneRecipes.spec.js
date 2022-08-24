@@ -31,13 +31,24 @@ describe('It tests the DoneRecipes page', () => {
     ];
     localStorage.setItem('doneRecipes', JSON.stringify(referenceData));
   });
+
   afterEach(cleanup);
-  it('Tests the DoneCard component', () => {
+
+  it('checks if the Done Card is rendered', () => {
     const { history } = RenderWithRouter(<App />);
 
     history.push('/done-recipes');
 
     const teste = screen.getByTestId('0-horizontal-top-text');
     expect(teste).toBeInTheDocument();
+  });
+
+  it('checks if the share button works as it should', () => {
+    const { history } = RenderWithRouter(<App />);
+
+    history.push('/done-recipes');
+
+    const shareButton = screen.getAllByRole('button', { name: /share button/i });
+    expect(shareButton[0]).toBeInTheDocument();
   });
 });

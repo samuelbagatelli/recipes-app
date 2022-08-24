@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import shareIcon from '../images/shareIcon.svg';
 
 function DoneCard({ element, index }) {
+  const history = useHistory();
+
   const {
     id,
     type,
@@ -23,11 +26,19 @@ function DoneCard({ element, index }) {
 
   const handleShare = () => {
     const TWO_SECONDS = 1500;
-    navigator.clipboard.writeText(`http://localhost:3000/foods/${id}`);
+    navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
     setCopied(true);
     setTimeout(() => {
       setCopied(false);
     }, TWO_SECONDS);
+  };
+
+  const handleClick = () => {
+    if (type === 'drink') {
+      history.push(`/drinks/${id}`);
+    } else {
+      history.push(`/foods/${id}`);
+    }
   };
 
   return (
@@ -51,9 +62,12 @@ function DoneCard({ element, index }) {
         />
       </button>
       {copied && <span>Link copied!</span>}
-      <p data-testid={ `${index}-horizontal-name` }>
+      <a
+        data-testid={ `${index}-horizontal-name` }
+        href={ `http://localhost:3000/${type}s/${id}` }
+      >
         {name}
-      </p>
+      </a>
       <p data-testid={ `${index}-horizontal-done-date` }>
         Done in:
         {' '}
@@ -69,11 +83,13 @@ function DoneCard({ element, index }) {
           </p>
         ))}
       </div>
-      <img
+      <input
         className="w-25"
         alt="Recipe thumb"
         data-testid={ `${index}-horizontal-image` }
         src={ image }
+        type="image"
+        onClick={ handleClick }
       />
     </div>
   );
