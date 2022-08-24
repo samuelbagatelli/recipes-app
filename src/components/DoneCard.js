@@ -85,7 +85,7 @@ function DoneCard({ element, index }) {
       </div>
       <input
         className="w-25"
-        alt="Recipe thumb"
+        alt={ `${name} thumbnail` }
         data-testid={ `${index}-horizontal-image` }
         src={ image }
         type="image"
