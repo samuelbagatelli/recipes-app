@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import AppContext from '../context/AppContext';
 import DrinkDetail from './DrinkDetail';
 import FoodDetail from './FoodDetail';
 
 export default function RecipeDetails() {
+  const { drinkData, foodData } = useContext(AppContext);
   const [recepieDetails, setRecipeDetails] = useState(null);
   const history = useHistory();
   const { location: { pathname } } = history;
+  const mealEndpoint = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+  const drinksEndpoint = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
   useEffect(() => {
     const asyncFetch = async () => {
+      const pathRef = pathname.includes('/foods/') ? '/foods/' : '/drinks/';
+      const endpoint = pathRef === '/foods/' ? mealEndpoint : drinksEndpoint;
+      const key = pathRef === '/foods/' ? 'meals' : 'drinks';
       try {
-        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${pathname.split('/foods/')[1]}`);
+        const response = await fetch(`${endpoint}${pathname.split(pathRef)[1]}`);
         const data = await response.json();
-        setRecipeDetails(data.meals[0]);
+        setRecipeDetails(data[key][0]);
         return [data];
       } catch (error) {
         return error;
@@ -23,8 +30,12 @@ export default function RecipeDetails() {
 
   return (
     <div className="alt-100">
-      { pathname.includes('/foods/') && recepieDetails ? FoodDetail(recepieDetails) : null }
-      { pathname.includes('/drinks/') && recepieDetails ? DrinkDetail(recepieDetails) : null }
+      { pathname
+        .includes('/foods/')
+        && recepieDetails ? FoodDetail(recepieDetails, drinkData) : null }
+      { pathname
+        .includes('/drinks/')
+        && recepieDetails ? DrinkDetail(recepieDetails, foodData) : null }
     </div>
   );
 }

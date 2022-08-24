@@ -13,7 +13,6 @@ fieldset {
   display: flex;
   height: 640px;
   justify-items: center;
-  margin-top: 3rem;
   width: 360px;
 }
 
@@ -21,8 +20,27 @@ fieldset {
   height: 100%;
 }
 
+.caroussel {
+  width: 360px;
+  overflow: auto;
+  display: flex;
+}
+
+.carousselImg {
+  height: 170px;
+  width: 175px;
+}
+
 .tamanho {
   width: 30px;
+}
+
+.text {
+  font-size: x-small;
+}
+
+.itemCaroussel {
+  display: inline-block;
 }
 
 .meals {

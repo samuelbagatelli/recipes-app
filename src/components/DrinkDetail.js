@@ -1,9 +1,112 @@
 import React from 'react';
 
-export default function DrinkDetail() {
+export default function DrinkDetail(recepieDetails, foodData) {
+  const {
+    strDrink,
+    strDrinkThumb,
+    strCategory,
+    strInstructions,
+    strAlcoholic,
+  } = recepieDetails;
+
+  const newIng = Object.keys(recepieDetails);
+  let fistIngredient;
+  let firstQuant;
+  newIng.forEach((string, index) => {
+    if (string === 'strIngredient1') {
+      fistIngredient = index;
+    } else if (string === 'strMeasure1') {
+      firstQuant = index;
+    }
+  });
+  const ingredients = Object.values(recepieDetails);
+  const copy = [...ingredients];
+  const copy2 = [...ingredients];
+  const ingredientQuant = 15;
+  const ingredientsArray = copy.splice(fistIngredient, ingredientQuant);
+  const quantArray = copy2
+    .splice(firstQuant, ingredientQuant);
+
+  const renderCaroussel = () => {
+    const quantLimit = 6;
+    return [...foodData]
+      .filter((_recipe, index1) => index1 < quantLimit)
+      .map((recipe, index) => (
+        <div
+          key={ recipe.idMeal }
+          className="itemCaroussel"
+          data-testid={ `${index}-recomendation-card` }
+        >
+          <img
+            src={ recipe.strMealThumb }
+            alt={ `foto da receita ${recipe.strMeal}` }
+            className="carousselImg"
+          />
+          <span
+            data-testid={ `${index}-recomendation-title` }
+          >
+            { recipe.strMeal }
+          </span>
+        </div>
+      ));
+  };
+
+  const renderDrink = () => (
+    <>
+      <h4
+        data-testid="recipe-title"
+        className="teste"
+      >
+        { strDrink }
+
+      </h4>
+      <img
+        src={ strDrinkThumb }
+        alt={ `Receita de ${strDrink}` }
+        data-testid="recipe-photo"
+        className="w-50"
+      />
+      <p
+        data-testid="recipe-category"
+        className="text"
+      >
+        { `${strCategory} - ${strAlcoholic}` }
+
+      </p>
+      <ul>
+        { ingredientsArray.map((ingredient, index) => {
+          if (ingredient !== '' && ingredient) {
+            return (
+              <li
+                key={ `${ingredient}-${index}` }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+                className="text"
+              >
+                { `${ingredient} - ${quantArray[index]}` }
+              </li>
+            );
+          }
+          return null;
+        }) }
+      </ul>
+      <div
+        className="caroussel"
+      >
+        { foodData && renderCaroussel() }
+      </div>
+      <p
+        data-testid="instructions"
+        className="text"
+      >
+        {`Instructions: ${strInstructions} `}
+
+      </p>
+    </>
+  );
+
   return (
-    <div>
-      milk shake com fetch component
-    </div>
+    <section>
+      { foodData && renderDrink() }
+    </section>
   );
 }

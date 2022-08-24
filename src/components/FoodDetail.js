@@ -1,47 +1,83 @@
 import React from 'react';
 
-export default function FoodDetail(recepieDetails) {
+export default function FoodDetail(recepieDetails, drinkData) {
   const {
     strMeal,
     strMealThumb,
     strCategory,
     strInstructions,
     strYoutube,
-    strSource,
   } = recepieDetails;
+
+  const newIng = Object.keys(recepieDetails);
+  let fistIngredient;
+  let firstQuant;
+  newIng.forEach((string, index) => {
+    if (string === 'strIngredient1') {
+      fistIngredient = index;
+    } else if (string === 'strMeasure1') {
+      firstQuant = index;
+    }
+  });
 
   const ingredients = Object.values(recepieDetails);
   const copy = [...ingredients];
   const copy2 = [...ingredients];
-  const lastNonIngredient = 9;
   const ingredientQuant = 20;
-  const ingredientsArray = copy.splice(lastNonIngredient, ingredientQuant);
-  const quantArray = copy2.splice(lastNonIngredient + ingredientQuant, ingredientQuant);
+  const ingredientsArray = copy.splice(fistIngredient, ingredientQuant);
+  const quantArray = copy2.splice(firstQuant, ingredientQuant);
   const youtubeRef = strYoutube.split('=')[1];
+
+  const renderCaroussel = () => {
+    const quantLimit = 6;
+    return [...drinkData]
+      .filter((_recipe, index1) => index1 < quantLimit)
+      .map((recipe, index) => (
+        <div
+          key={ recipe.idDrink }
+          className="itemCaroussel"
+          data-testid={ `${index}-recomendation-card` }
+        >
+          <img
+            src={ recipe.strDrinkThumb }
+            alt={ `foto da receita ${recipe.strDrink}` }
+            className="carousselImg"
+          />
+          <span>{ recipe.strDrink }</span>
+        </div>
+      ));
+  };
 
   const renderMeal = () => (
     <>
-      <h2
+      <h4
         data-testid="recipe-title"
         className="teste"
       >
         { strMeal }
 
-      </h2>
+      </h4>
       <img
         src={ strMealThumb }
         alt={ `Receita de ${strMeal}` }
         data-testid="recipe-photo"
         className="w-50"
       />
-      <p data-testid="recipe-category">{ strCategory }</p>
+      <p
+        data-testid="recipe-category"
+        className="text"
+      >
+        { strCategory }
+
+      </p>
       <ul>
         { ingredientsArray.map((ingredient, index) => {
-          if (ingredient !== '') {
+          if (ingredient !== '' && ingredient) {
             return (
               <li
                 key={ `${ingredient}-${index}` }
                 data-testid={ `${index}-ingredient-name-and-measure` }
+                className="text"
               >
                 { `${ingredient} - ${quantArray[index]}` }
               </li>
@@ -50,7 +86,13 @@ export default function FoodDetail(recepieDetails) {
           return null;
         }) }
       </ul>
-      <p data-testid="instructions">{`Instructions: ${strInstructions} `}</p>
+      <p
+        data-testid="instructions"
+        className="text"
+      >
+        {`Instructions: ${strInstructions} `}
+
+      </p>
       <iframe
         data-testid="video"
         src={ `https://www.youtube.com/embed/${youtubeRef}` }
@@ -59,15 +101,9 @@ export default function FoodDetail(recepieDetails) {
         allowFullScreen
         title="video"
       />
-      <a
-        href={ strSource }
-        target="_blank"
-        rel="noreferrer"
-        data-testid="0-recomendation-card"
-      >
-        { `Link to ${strMeal} recipe` }
-
-      </a>
+      <div className="caroussel">
+        { drinkData && renderCaroussel() }
+      </div>
     </>
   );
 

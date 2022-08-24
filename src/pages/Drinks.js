@@ -11,7 +11,6 @@ function Drinks() {
   if (drinks.length === 1) return <Redirect to={ `/drinks/${drinks[0].idDrink}` } />;
 
   const MAX_RECIPES_TO_SHOW = 12;
-  console.log(drinks);
 
   return (
     <main>
