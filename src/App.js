@@ -20,9 +20,9 @@ function App() {
           <Route path="/drinks/:drinksID" component={ Recipes } />
           <Route exact path="/foods" component={ Recipes } />
           <Route exact path="/drinks" component={ Recipes } />
-          <Route path="/profile" exact component={ Profile } />
-          <Route path="/done-recipes" exact component={ DoneRecipes } />
-          <Route path="/favorite-recipes" exact component={ FavoriteRecipes } />
+          <Route path="/profile" component={ Profile } />
+          <Route path="/done-recipes" component={ DoneRecipes } />
+          <Route path="/favorite-recipes" component={ FavoriteRecipes } />
           <Route exact path="/" component={ Login } />
           <Route path="*" component={ NotFound } />
         </Switch>

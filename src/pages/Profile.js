@@ -17,7 +17,7 @@ function Profile() {
   return (
     <div>
       <Header />
-      <span data-testid="profile-email">{emailInput}</span>
+      <span data-testid="profile-email">{JSON.parse(emailInput).email}</span>
       <Link to="/done-recipes">
         <button
           data-testid="profile-done-btn"
