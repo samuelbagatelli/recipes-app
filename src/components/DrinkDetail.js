@@ -34,19 +34,18 @@ export default function DrinkDetail(recepieDetails, foodData) {
       .map((recipe, index) => (
         <div
           key={ recipe.idMeal }
-          className="itemCaroussel"
           data-testid={ `${index}-recomendation-card` }
         >
+          <h6
+            data-testid={ `${index}-recomendation-title` }
+          >
+            { recipe.strMeal }
+          </h6>
           <img
             src={ recipe.strMealThumb }
             alt={ `foto da receita ${recipe.strMeal}` }
             className="carousselImg"
           />
-          <span
-            data-testid={ `${index}-recomendation-title` }
-          >
-            { recipe.strMeal }
-          </span>
         </div>
       ));
   };
@@ -89,11 +88,6 @@ export default function DrinkDetail(recepieDetails, foodData) {
           return null;
         }) }
       </ul>
-      <div
-        className="caroussel"
-      >
-        { foodData && renderCaroussel() }
-      </div>
       <p
         data-testid="instructions"
         className="text"
@@ -101,6 +95,11 @@ export default function DrinkDetail(recepieDetails, foodData) {
         {`Instructions: ${strInstructions} `}
 
       </p>
+      <div
+        className="caroussel"
+      >
+        { foodData && renderCaroussel() }
+      </div>
     </>
   );
 

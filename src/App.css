@@ -20,15 +20,16 @@ fieldset {
   height: 100%;
 }
 
+/* Desenvolvido com o auxílio do Bryan da 22-B */
 .caroussel {
-  width: 360px;
-  overflow: auto;
   display: flex;
+  overflow-x: auto;
+  width: 360px;
 }
 
 .carousselImg {
   height: 170px;
-  width: 175px;
+  width: 185px;
 }
 
 .tamanho {
@@ -37,10 +38,6 @@ fieldset {
 
 .text {
   font-size: x-small;
-}
-
-.itemCaroussel {
-  display: inline-block;
 }
 
 .meals {

@@ -28,6 +28,7 @@ export default function FoodDetail(recepieDetails, drinkData) {
   const quantArray = copy2.splice(firstQuant, ingredientQuant);
   const youtubeRef = strYoutube.split('=')[1];
 
+  // Desenvolvido com o auxílio do Bryan da 22-B
   const renderCaroussel = () => {
     const quantLimit = 6;
     return [...drinkData]
@@ -35,15 +36,19 @@ export default function FoodDetail(recepieDetails, drinkData) {
       .map((recipe, index) => (
         <div
           key={ recipe.idDrink }
-          className="itemCaroussel"
           data-testid={ `${index}-recomendation-card` }
         >
+          <h6
+            data-testid={ `${index}-recomendation-title` }
+          >
+            { recipe.strDrink }
+
+          </h6>
           <img
             src={ recipe.strDrinkThumb }
             alt={ `foto da receita ${recipe.strDrink}` }
             className="carousselImg"
           />
-          <span>{ recipe.strDrink }</span>
         </div>
       ));
   };
