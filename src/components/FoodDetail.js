@@ -115,6 +115,13 @@ export default function FoodDetail(recepieDetails, drinkData) {
   return (
     <section>
       { renderMeal() }
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+        className="startRecipeButton"
+      >
+        Teste
+      </button>
     </section>
   );
 }

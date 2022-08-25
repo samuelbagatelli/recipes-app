@@ -28,8 +28,8 @@ fieldset {
 }
 
 .carousselImg {
-  height: 170px;
-  width: 185px;
+  left: 0px;
+  width: 180.05px;
 }
 
 .tamanho {
@@ -38,6 +38,11 @@ fieldset {
 
 .text {
   font-size: x-small;
+}
+
+.startRecipeButton {
+  bottom: 0px;
+  position: fixed;
 }
 
 .meals {
