@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { node } from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import getRecipes from '../services/getRecipes';
 import useFetch from '../hooks/useFetch';
@@ -21,6 +21,10 @@ function AppProvider({ children }) {
   const [drinkCategory, setDrinkCategory] = useState(null);
   const [filterActive, setFilterActive] = useState(false);
   const [filterValue, setFilterValue] = useState('');
+  const [mealInprogress, setmealInprogress] = useState([]);
+  const [drinkInprogress, setdrinkInprogress] = useState([]);
+  const [ingredients, setingredients] = useState([]);
+  const [recipeInProgress, setrecipeInProgress] = useState([]);
 
   useFetch('https://www.themealdb.com/api/json/v1/1/search.php?s=', setFoodData, 'meals');
   useFetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', setDrinkData, 'drinks');
@@ -28,6 +32,8 @@ function AppProvider({ children }) {
   useFetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', setDrinkCategory, 'drinks');
 
   const Alert = 'Sorry, we haven\'t found any recipes for these filters.';
+  const history = useHistory();
+  const { location: { pathname } } = history;
 
   const manageRequest = (type) => {
     if (searchFunction.length > 1 && Filters === 'first-letter') {
@@ -92,6 +98,14 @@ function AppProvider({ children }) {
     setDrinkFilteredData,
     filterValue,
     setFilterValue,
+    mealInprogress,
+    setmealInprogress,
+    drinkInprogress,
+    setdrinkInprogress,
+    ingredients,
+    setingredients,
+    recipeInProgress,
+    setrecipeInProgress,
   };
 
   return (
