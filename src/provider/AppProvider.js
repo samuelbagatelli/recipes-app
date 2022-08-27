@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { node } from 'prop-types';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import getRecipes from '../services/getRecipes';
 import useFetch from '../hooks/useFetch';
@@ -32,8 +32,6 @@ function AppProvider({ children }) {
   useFetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', setDrinkCategory, 'drinks');
 
   const Alert = 'Sorry, we haven\'t found any recipes for these filters.';
-  const history = useHistory();
-  const { location: { pathname } } = history;
 
   const manageRequest = (type) => {
     if (searchFunction.length > 1 && Filters === 'first-letter') {
