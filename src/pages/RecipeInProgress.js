@@ -14,24 +14,21 @@ function RecipeInProgress() {
   const getID = location.pathname.split('/').splice(2);
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState([]);
+
+  // Refatorar
   const type = location.pathname.match(/foods\//i) ? 'meals' : 'drinks';
-  const [ingredientDone, setingredientDone] = useState([]);
   const theType = type === 'foods' ? 'meals' : 'cocktails';
   const ToFavorite = location.pathname.match(/foods\//i) ? 'food' : 'drink';
+
+  const [ingredientDone, setingredientDone] = useState([]);
+
   const checkIfStored = () => {
     const checkIfInStore = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (checkIfInStore) setingredientDone(checkIfInStore[theType][getID[0]] || []);
   };
+
   const [shared, setshared] = useState(false);
   const [favorite, setfavorite] = useState(false);
-
-  useEffect(() => {
-    checkIfStored();
-    const stored = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (stored) {
-      setfavorite(stored.some((ele) => (ele.id === getID[0])));
-    }
-  }, []);
 
   useEffect(() => {
     fetchInprogress(getID[0], type)
@@ -46,21 +43,22 @@ function RecipeInProgress() {
           `${fetchedData[k]} ${fetchedData[mKeys[i]] || ''}`
         )));
       });
+    checkIfStored();
+    const stored = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (stored) {
+      setfavorite(stored.some((ele) => (ele.id === getID[0])));
+    }
   }, []);
 
   const setFavorite = () => {
-    favoriteRecipe(recipe, ToFavorite);
     setfavorite(!favorite);
+    favoriteRecipe(recipe, ToFavorite);
   };
 
   const endProcess = () => {
-    const id = getID[0];
+    const setData = DetailsTostore(recipe, type, getID[0]);
     const PROCESS_ENDED = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    const setData = DetailsTostore(recipe, type, id);
-    localStorage.setItem(
-      'doneRecipes',
-      JSON.stringify([...PROCESS_ENDED, setData]),
-    );
+    localStorage.setItem('doneRecipes', JSON.stringify([...PROCESS_ENDED, setData]));
     history.push('/done-recipes');
   };
 
@@ -98,26 +96,25 @@ function RecipeInProgress() {
       <p data-testid="recipe-category">
         {recipe.strCategory}
       </p>
-      <div>
-        { ingredients.map((ingredient, index) => (
-          <label
-            key={ index }
-            data-testid={ `${index}-ingredient-step` }
-            htmlFor={ ingredient }
+      <ul style={ { listStyleType: 'none' } }>
+        { ingredients.map((ele, ii) => (
+          <li
+            key={ ii }
+            data-testid={ `${ii}-ingredient-step` }
           >
             <input
-              id={ ingredient }
+              id={ ele }
               type="checkbox"
               onChange={ () => {
-                checkingredients(getID[0], ingredient, theType);
+                checkingredients(getID[0], ele, theType);
                 checkIfStored();
               } }
-              checked={ ingredientDone.includes(ingredient) }
+              checked={ ingredientDone.includes(ele) }
             />
-            { ingredient }
-          </label>
+            { ele }
+          </li>
         )) }
-      </div>
+      </ul>
       <p data-testid="instructions">{ recipe.strInstructions }</p>
       <button
         disabled={ ingredients.length !== ingredientDone.length }

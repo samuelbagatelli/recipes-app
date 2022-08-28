@@ -1,5 +1,4 @@
 export default (recipe, type) => {
-  const storedRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const id = recipe.idMeal || recipe.idDrink;
   const structureRecipe = {
     id,
@@ -10,6 +9,7 @@ export default (recipe, type) => {
     name: recipe.strMeal || recipe.strDrink,
     image: recipe.strMealThumb || recipe.strDrinkThumb,
   };
+  const storedRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   if (storedRecipes) {
     const storedFile = storedRecipes
