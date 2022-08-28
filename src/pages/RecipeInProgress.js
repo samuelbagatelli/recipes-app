@@ -89,13 +89,12 @@ function RecipeInProgress() {
         data-testid="favorite-btn"
         src={ favorite ? YEPFavorited : NONFavorite }
       >
-        { favorite
-          ? <img src={ YEPFavorited } alt="Black Heart" />
+        { favorite ? <img src={ YEPFavorited } alt="Black Heart" />
           : <img src={ NONFavorite } alt="White Heart" /> }
       </button>
-      <p data-testid="recipe-category">
+      <h3 data-testid="recipe-category">
         {recipe.strCategory}
-      </p>
+      </h3>
       <ul style={ { listStyleType: 'none' } }>
         { ingredients.map((ele, ii) => (
           <li

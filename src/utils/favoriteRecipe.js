@@ -9,21 +9,17 @@ export default (recipe, type) => {
     name: recipe.strMeal || recipe.strDrink,
     image: recipe.strMealThumb || recipe.strDrinkThumb,
   };
-  const storedRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
-  if (storedRecipes) {
-    const storedFile = storedRecipes
-      ?.some((stored) => stored.id === id);
+  if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
+    const storedFile = JSON.parse(localStorage
+      .getItem('favoriteRecipes'))?.some((stored) => stored.id === id);
     if (storedFile) {
       return localStorage.setItem(
         'favoriteRecipes',
-        JSON.stringify([...storedRecipes.filter((ele) => (ele.id !== id))]),
+        JSON.stringify([...JSON.parse(localStorage.getItem('favoriteRecipes'))
+          .filter((ele) => (ele.id !== id))]),
       );
-    }
-    return localStorage.setItem(
-      'favoriteRecipes',
-      JSON.stringify([...storedRecipes, structureRecipe]),
-    );
-  }
-  localStorage.setItem('favoriteRecipes', JSON.stringify([structureRecipe]));
+    } return localStorage.setItem('favoriteRecipes',
+      JSON.stringify([...JSON.parse(localStorage
+        .getItem('favoriteRecipes')), structureRecipe]));
+  } localStorage.setItem('favoriteRecipes', JSON.stringify([structureRecipe]));
 };
