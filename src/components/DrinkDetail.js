@@ -12,7 +12,7 @@ export default function DrinkDetail(recepieDetails, foodData, pathname) {
 
   const doneRec = JSON.parse(localStorage.getItem('doneRecipes'));
   const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  console.log(inProgress, pathname.match(/(\d+)/)[0]);
+  console.log(inProgress);
   const newIng = Object.keys(recepieDetails);
   let fistIngredient;
   let firstQuant;
@@ -31,14 +31,17 @@ export default function DrinkDetail(recepieDetails, foodData, pathname) {
   const quantArray = copy2
     .splice(firstQuant, ingredientQuant);
 
-  const verifyLocalStorage = (recipeName) => doneRec
-    .find(({ name }) => recipeName === name);
+  const verifyLocalStorageDone = (recipeName) => doneRec
+    .some(({ name }) => recipeName === name);
 
-  const BtnText = () => (
-    Object
-      .keys(inProgress.cocktails)
-      .find((ID) => Number(ID) === Number(pathname.match(/(\d+)/)[0]))
-      ? 'Continue Recipe' : 'Start Recipe');
+  const BtnText = () => {
+    if (!inProgress) return 'Start Recipe';
+    return (
+      Object
+        .keys(inProgress.cocktails)
+        .some((ID) => Number(ID) === Number(pathname.match(/(\d+)/)[0]))
+        ? 'Continue Recipe' : 'Start Recipe');
+  };
 
   const renderCaroussel = () => {
     const quantLimit = 6;
@@ -119,18 +122,19 @@ export default function DrinkDetail(recepieDetails, foodData, pathname) {
   return (
     <section>
       { foodData && renderDrink() }
-      { (() => !verifyLocalStorage(strDrink))
-      && (
-        <Link to={ `/drinks/${pathname.match(/(\d+)/)[0]}/in-progress` }>
-          <button
-            data-testid="start-recipe-btn"
-            type="button"
-            className="startRecipeButton"
-          >
-            { inProgress && BtnText() }
-          </button>
-        </Link>
-      ) }
+      <Link to={ `/drinks/${pathname.match(/(\d+)/)[0]}/in-progress` }>
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          className="startRecipeButton"
+          style={ {
+            display: doneRec
+              && strDrink && !verifyLocalStorageDone() ? 'block' : 'none',
+          } }
+        >
+          { BtnText() }
+        </button>
+      </Link>
     </section>
   );
 }
