@@ -4,6 +4,7 @@ import RecipeDetails from '../components/RecipeDetails';
 import AppContext from '../context/AppContext';
 import Drinks from './Drinks';
 import Foods from './Foods';
+import Footer from '../components/Footer';
 
 export default function Recipes() {
   const { foodData,
@@ -139,6 +140,8 @@ export default function Recipes() {
         { foodCategory && drinkCategory && !searching ? renderCategories() : null }
         { !searching && renderAllButton() }
       </div>
+      { !pathname.includes('/foods/') && !pathname.includes('/drinks/')
+        ? <Footer /> : null }
     </div>
   );
 }
