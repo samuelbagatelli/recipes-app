@@ -10,13 +10,13 @@ function Drinks() {
 
   if (drinks.length === 1) return <Redirect to={ `/drinks/${drinks[0].idDrink}` } />;
 
-  const MAX_RECIPES_TO_SHOW = 12;
+  const MaxRecipes = 12;
 
   return (
     <main>
       <Header />
       { drinks
-        .filter((_recipe, index) => index + 1 <= MAX_RECIPES_TO_SHOW)
+        .filter((_recipe, index) => index + 1 <= MaxRecipes)
         .map((recipe, index) => (
           <Card
             key={ recipe.idDrink }
