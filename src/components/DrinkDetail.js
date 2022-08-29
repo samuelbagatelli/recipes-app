@@ -9,6 +9,7 @@ export default function DrinkDetail(recepieDetails, foodData) {
     strAlcoholic,
   } = recepieDetails;
 
+  const doneRec = JSON.parse(localStorage.getItem('doneRecipes'));
   const newIng = Object.keys(recepieDetails);
   let fistIngredient;
   let firstQuant;
@@ -26,6 +27,9 @@ export default function DrinkDetail(recepieDetails, foodData) {
   const ingredientsArray = copy.splice(fistIngredient, ingredientQuant);
   const quantArray = copy2
     .splice(firstQuant, ingredientQuant);
+
+  const verifyLocalStorage = (recipeName) => doneRec
+    .find(({ name }) => recipeName === name);
 
   const renderCaroussel = () => {
     const quantLimit = 6;
@@ -106,13 +110,16 @@ export default function DrinkDetail(recepieDetails, foodData) {
   return (
     <section>
       { foodData && renderDrink() }
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        className="startRecipeButton"
-      >
-        Teste
-      </button>
+      { (() => !verifyLocalStorage(strDrink))
+      && (
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          className="startRecipeButton"
+        >
+          Start Recipe
+        </button>
+      ) }
     </section>
   );
 }

@@ -9,6 +9,8 @@ export default function FoodDetail(recepieDetails, drinkData) {
     strYoutube,
   } = recepieDetails;
 
+  const doneRec = JSON.parse(localStorage.getItem('doneRecipes'));
+
   const newIng = Object.keys(recepieDetails);
   let fistIngredient;
   let firstQuant;
@@ -27,6 +29,9 @@ export default function FoodDetail(recepieDetails, drinkData) {
   const ingredientsArray = copy.splice(fistIngredient, ingredientQuant);
   const quantArray = copy2.splice(firstQuant, ingredientQuant);
   const youtubeRef = strYoutube.split('=')[1];
+
+  const verifyLocalStorage = (recipeName) => doneRec
+    .find(({ name }) => recipeName === name);
 
   // Desenvolvido com o auxílio do Bryan da 22-B
   const renderCaroussel = () => {
@@ -114,14 +119,17 @@ export default function FoodDetail(recepieDetails, drinkData) {
 
   return (
     <section>
-      { renderMeal() }
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        className="startRecipeButton"
-      >
-        Teste
-      </button>
+      { drinkData && renderMeal() }
+      { (() => !verifyLocalStorage(strMeal))
+        && (
+          <button
+            data-testid="start-recipe-btn"
+            type="button"
+            className="startRecipeButton"
+          >
+            Start Recipe
+          </button>
+        ) }
     </section>
   );
 }
