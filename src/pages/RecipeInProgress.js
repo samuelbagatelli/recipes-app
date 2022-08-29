@@ -65,6 +65,10 @@ function RecipeInProgress() {
         { recipe.strMeal || recipe.strDrink }
       </h1>
       <img
+        style={ {
+          height: 200,
+          width: 350,
+        } }
         data-testid="recipe-photo"
         src={ recipe.strMealThumb || recipe.strDrinkThumb }
         alt={ recipe.strMeal || recipe.strDrink }
