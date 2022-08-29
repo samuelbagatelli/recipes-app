@@ -21,6 +21,10 @@ function AppProvider({ children }) {
   const [drinkCategory, setDrinkCategory] = useState(null);
   const [filterActive, setFilterActive] = useState(false);
   const [filterValue, setFilterValue] = useState('');
+  const [mealInprogress, setmealInprogress] = useState([]);
+  const [drinkInprogress, setdrinkInprogress] = useState([]);
+  const [ingredients, setingredients] = useState([]);
+  const [recipeInProgress, setrecipeInProgress] = useState([]);
 
   useFetch('https://www.themealdb.com/api/json/v1/1/search.php?s=', setFoodData, 'meals');
   useFetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', setDrinkData, 'drinks');
@@ -92,6 +96,14 @@ function AppProvider({ children }) {
     setDrinkFilteredData,
     filterValue,
     setFilterValue,
+    mealInprogress,
+    setmealInprogress,
+    drinkInprogress,
+    setdrinkInprogress,
+    ingredients,
+    setingredients,
+    recipeInProgress,
+    setrecipeInProgress,
   };
 
   return (

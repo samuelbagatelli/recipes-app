@@ -10,24 +10,23 @@ import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import AppProvider from './provider/AppProvider';
+import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
   return (
-    <div className="screen">
-      <AppProvider>
-        <Switch>
-          <Route path="/foods/:foodsID" component={ Recipes } />
-          <Route path="/drinks/:drinksID" component={ Recipes } />
-          <Route exact path="/foods" component={ Recipes } />
-          <Route exact path="/drinks" component={ Recipes } />
-          <Route path="/profile" exact component={ Profile } />
-          <Route path="/done-recipes" exact component={ DoneRecipes } />
-          <Route path="/favorite-recipes" exact component={ FavoriteRecipes } />
-          <Route exact path="/" component={ Login } />
-          <Route path="*" component={ NotFound } />
-        </Switch>
-      </AppProvider>
-    </div>
+    <AppProvider>
+      <Switch>
+        <Route path="/foods/:foodsID/in-progress" component={ RecipeInProgress } />
+        <Route path="/drinks/:drinksID/in-progress" component={ RecipeInProgress } />
+        <Route exact path="/foods" component={ Recipes } />
+        <Route exact path="/drinks" component={ Recipes } />
+        <Route path="/profile" exact component={ Profile } />
+        <Route path="/done-recipes" exact component={ DoneRecipes } />
+        <Route path="/favorite-recipes" exact component={ FavoriteRecipes } />
+        <Route exact path="/" component={ Login } />
+        <Route path="*" component={ NotFound } />
+      </Switch>
+    </AppProvider>
   );
 }
 export default App;

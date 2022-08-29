@@ -1,19 +1,12 @@
 body {
   display: flex;
-  justify-content: center;
+  height: 640px;
+  width: 360px;
 }
 
 fieldset {
   display: flex;
   justify-content: center;
-}
-
-.screen {
-  align-items: center;
-  display: flex;
-  height: 640px;
-  justify-items: center;
-  width: 360px;
 }
 
 .tamanho {
