@@ -5,6 +5,6 @@ export default async (value = '', filter = 'name', type = 'meals') => {
   case 'first-letter': GET_FOOD += `search.php?f=${value}`; break;
   default: GET_FOOD += `search.php?s=${value}`; break;
   } try {
-    const response = await fetch(GET_FOOD); return response.json();
+    const response = await fetch(GET_FOOD); return await response.json();
   } catch { return {}; }
 };
