@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function FoodDetail(recepieDetails, drinkData, pathname) {
   const {
@@ -33,9 +34,11 @@ export default function FoodDetail(recepieDetails, drinkData, pathname) {
   const verifyLocalStorageDone = (recipeName) => doneRec
     .find(({ name }) => recipeName === name);
 
-  const verifyLocalStorageProgress = () => Object
-    .keys(inProgress.meals)
-    .find((ID) => Number(ID) === Number(pathname.match(/(\d+)/)[0]));
+  const BtnText = () => (
+    Object
+      .keys(inProgress.meals)
+      .find((ID) => Number(ID) === Number(pathname.match(/(\d+)/)[0]))
+      ? 'Continue Recipe' : 'Start Recipe');
 
   // Desenvolvido com o auxílio do Bryan da 22-B
   const renderCaroussel = () => {
@@ -126,13 +129,15 @@ export default function FoodDetail(recepieDetails, drinkData, pathname) {
       { drinkData && renderMeal() }
       { (() => !verifyLocalStorageDone(strMeal))
         && (
-          <button
-            data-testid="start-recipe-btn"
-            type="button"
-            className="startRecipeButton"
-          >
-            { !verifyLocalStorageProgress ? 'Start Recipe' : 'Continue Recipe' }
-          </button>
+          <Link to={ `/foods/${pathname.match(/(\d+)/)[0]}/in-progress` }>
+            <button
+              data-testid="start-recipe-btn"
+              type="button"
+              className="startRecipeButton"
+            >
+              { inProgress && BtnText() }
+            </button>
+          </Link>
         ) }
     </section>
   );
