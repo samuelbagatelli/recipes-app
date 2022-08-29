@@ -4,7 +4,6 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 
 import renderWithRouter from '../helpers/RenderWithRouter';
-import { meals } from '../../cypress/mocks/meals';
 import App from '../App';
 
 describe('Test case for recipes pages', () => {

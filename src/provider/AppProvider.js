@@ -6,6 +6,9 @@ import getRecipes from '../services/getRecipes';
 import useFetch from '../hooks/useFetch';
 
 function AppProvider({ children }) {
+  const doneRecipes = localStorage.getItem('doneRecipes');
+  const referenceData = doneRecipes !== null ? JSON.parse(doneRecipes) : [];
+
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [searchFunction, setSearchFunction] = useState('');
@@ -21,6 +24,8 @@ function AppProvider({ children }) {
   const [drinkCategory, setDrinkCategory] = useState(null);
   const [filterActive, setFilterActive] = useState(false);
   const [filterValue, setFilterValue] = useState('');
+  const [copied, setCopied] = useState(false);
+  const [doneRecipesFiltered, setDoneRecipesFiltered] = useState(referenceData);
   const [mealInprogress, setmealInprogress] = useState([]);
   const [drinkInprogress, setdrinkInprogress] = useState([]);
   const [ingredients, setingredients] = useState([]);
@@ -96,6 +101,10 @@ function AppProvider({ children }) {
     setDrinkFilteredData,
     filterValue,
     setFilterValue,
+    copied,
+    setCopied,
+    doneRecipesFiltered,
+    setDoneRecipesFiltered,
     mealInprogress,
     setmealInprogress,
     drinkInprogress,

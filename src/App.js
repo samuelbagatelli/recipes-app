@@ -18,6 +18,8 @@ function App() {
       <Switch>
         <Route path="/foods/:foodsID/in-progress" component={ RecipeInProgress } />
         <Route path="/drinks/:drinksID/in-progress" component={ RecipeInProgress } />
+        <Route path="/foods/:foodsID" component={ Recipes } />
+        <Route path="/drinks/:drinksID" component={ Recipes } />
         <Route exact path="/foods" component={ Recipes } />
         <Route exact path="/drinks" component={ Recipes } />
         <Route path="/profile" exact component={ Profile } />
@@ -29,4 +31,5 @@ function App() {
     </AppProvider>
   );
 }
+
 export default App;
