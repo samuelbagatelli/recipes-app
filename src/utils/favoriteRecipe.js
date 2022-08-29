@@ -1,5 +1,4 @@
-export default (recipe, type) => {
-  const id = recipe.idMeal || recipe.idDrink;
+export default (recipe, type, id) => {
   const structureRecipe = {
     id,
     type,

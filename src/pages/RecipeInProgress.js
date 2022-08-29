@@ -15,20 +15,20 @@ function RecipeInProgress() {
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState([]);
 
-  // Refatorar
   const type = location.pathname.match(/foods\//i) ? 'meals' : 'drinks';
-  const theType = type === 'foods' ? 'meals' : 'cocktails';
+  const MEALS_OR_COCKTAILS = type === 'foods' ? 'meals' : 'cocktails';
   const ToFavorite = location.pathname.match(/foods\//i) ? 'food' : 'drink';
 
   const [ingredientDone, setingredientDone] = useState([]);
-
-  const checkIfStored = () => {
-    const checkIfInStore = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (checkIfInStore) setingredientDone(checkIfInStore[theType][getID[0]] || []);
-  };
-
   const [shared, setshared] = useState(false);
   const [favorite, setfavorite] = useState(false);
+
+  const checkIfStored = () => {
+    const InStore = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const stored = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (InStore) setingredientDone(InStore[MEALS_OR_COCKTAILS][getID[0]] || []);
+    if (stored) setfavorite(stored.some((ele) => (ele.id === getID[0])));
+  };
 
   useEffect(() => {
     fetchInprogress(getID[0], type)
@@ -44,15 +44,12 @@ function RecipeInProgress() {
         )));
       });
     checkIfStored();
-    const stored = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (stored) {
-      setfavorite(stored.some((ele) => (ele.id === getID[0])));
-    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setFavorite = () => {
     setfavorite(!favorite);
-    favoriteRecipe(recipe, ToFavorite);
+    favoriteRecipe(recipe, ToFavorite, getID[0]);
   };
 
   const endProcess = () => {
@@ -105,7 +102,7 @@ function RecipeInProgress() {
               id={ ele }
               type="checkbox"
               onChange={ () => {
-                checkingredients(getID[0], ele, theType);
+                checkingredients(getID[0], ele, MEALS_OR_COCKTAILS);
                 checkIfStored();
               } }
               checked={ ingredientDone.includes(ele) }
