@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function FoodDetail(recepieDetails, drinkData) {
+export default function FoodDetail(recepieDetails, drinkData, pathname) {
   const {
     strMeal,
     strMealThumb,
@@ -10,7 +10,7 @@ export default function FoodDetail(recepieDetails, drinkData) {
   } = recepieDetails;
 
   const doneRec = JSON.parse(localStorage.getItem('doneRecipes'));
-
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const newIng = Object.keys(recepieDetails);
   let fistIngredient;
   let firstQuant;
@@ -30,8 +30,12 @@ export default function FoodDetail(recepieDetails, drinkData) {
   const quantArray = copy2.splice(firstQuant, ingredientQuant);
   const youtubeRef = strYoutube.split('=')[1];
 
-  const verifyLocalStorage = (recipeName) => doneRec
+  const verifyLocalStorageDone = (recipeName) => doneRec
     .find(({ name }) => recipeName === name);
+
+  const verifyLocalStorageProgress = () => Object
+    .keys(inProgress.meals)
+    .find((ID) => Number(ID) === Number(pathname.match(/(\d+)/)[0]));
 
   // Desenvolvido com o auxílio do Bryan da 22-B
   const renderCaroussel = () => {
@@ -120,14 +124,14 @@ export default function FoodDetail(recepieDetails, drinkData) {
   return (
     <section>
       { drinkData && renderMeal() }
-      { (() => !verifyLocalStorage(strMeal))
+      { (() => !verifyLocalStorageDone(strMeal))
         && (
           <button
             data-testid="start-recipe-btn"
             type="button"
             className="startRecipeButton"
           >
-            Start Recipe
+            { !verifyLocalStorageProgress ? 'Start Recipe' : 'Continue Recipe' }
           </button>
         ) }
     </section>

@@ -16,8 +16,9 @@ export default function RecipeDetails() {
       const pathRef = pathname.includes('/foods/') ? '/foods/' : '/drinks/';
       const endpoint = pathRef === '/foods/' ? mealEndpoint : drinksEndpoint;
       const key = pathRef === '/foods/' ? 'meals' : 'drinks';
+      const ID = pathname.split(pathRef)[1];
       try {
-        const response = await fetch(`${endpoint}${pathname.split(pathRef)[1]}`);
+        const response = await fetch(`${endpoint}${ID}`);
         const data = await response.json();
         setRecipeDetails(data[key][0]);
         return [data];
@@ -32,10 +33,10 @@ export default function RecipeDetails() {
     <div className="alt-100">
       { pathname
         .includes('/foods/')
-        && recepieDetails ? FoodDetail(recepieDetails, drinkData) : null }
+        && recepieDetails ? FoodDetail(recepieDetails, drinkData, pathname) : null }
       { pathname
         .includes('/drinks/')
-        && recepieDetails ? DrinkDetail(recepieDetails, foodData) : null }
+        && recepieDetails ? DrinkDetail(recepieDetails, foodData, pathname) : null }
     </div>
   );
 }

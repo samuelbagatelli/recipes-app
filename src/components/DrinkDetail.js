@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function DrinkDetail(recepieDetails, foodData) {
+export default function DrinkDetail(recepieDetails, foodData, pathname) {
   const {
     strDrink,
     strDrinkThumb,
@@ -10,6 +10,8 @@ export default function DrinkDetail(recepieDetails, foodData) {
   } = recepieDetails;
 
   const doneRec = JSON.parse(localStorage.getItem('doneRecipes'));
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  console.log(inProgress, pathname.match(/(\d+)/)[0]);
   const newIng = Object.keys(recepieDetails);
   let fistIngredient;
   let firstQuant;
@@ -30,6 +32,10 @@ export default function DrinkDetail(recepieDetails, foodData) {
 
   const verifyLocalStorage = (recipeName) => doneRec
     .find(({ name }) => recipeName === name);
+
+  const verifyLocalStorageProgress = () => Object
+    .keys(inProgress.cocktails)
+    .find((ID) => Number(ID) === Number(pathname.match(/(\d+)/)[0]));
 
   const renderCaroussel = () => {
     const quantLimit = 6;
@@ -117,7 +123,7 @@ export default function DrinkDetail(recepieDetails, foodData) {
           type="button"
           className="startRecipeButton"
         >
-          Start Recipe
+          { !verifyLocalStorageProgress ? 'Start Recipe' : 'Continue Recipe' }
         </button>
       ) }
     </section>
