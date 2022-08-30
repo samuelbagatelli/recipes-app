@@ -1,17 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
-export default function FoodDetail(recepieDetails, drinkData, pathname) {
+export default function FoodDetail(recepieDetails, drinkData) {
   const {
     strMeal,
     strMealThumb,
     strCategory,
     strInstructions,
     strYoutube,
+    // idMeal,
   } = recepieDetails;
 
-  const doneRec = JSON.parse(localStorage.getItem('doneRecipes'));
-  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  // const doneRec = JSON.parse(localStorage.getItem('doneRecipes'));
+  // const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const newIng = Object.keys(recepieDetails);
   let fistIngredient;
   let firstQuant;
@@ -31,20 +32,20 @@ export default function FoodDetail(recepieDetails, drinkData, pathname) {
   const quantArray = copy2.splice(firstQuant, ingredientQuant);
   const youtubeRef = strYoutube.split('=')[1];
 
-  const verifyLocalStorageDone = () => {
-    const teste = doneRec
-      .some(({ name }) => strMeal === name);
-    return teste;
-  };
+  // const verifyLocalStorageDone = () => {
+  //   const teste = doneRec
+  //     .some(({ id }) => Number(idMeal) === Number(id));
+  //   return teste;
+  // };
 
-  const BtnText = () => {
-    if (!inProgress) return 'Start Recipe';
-    return (
-      Object
-        .keys(inProgress.meals)
-        .some((ID) => Number(ID) === Number(pathname.match(/(\d+)/)[0]))
-        ? 'Continue Recipe' : 'Start Recipe');
-  };
+  // const BtnText = () => {
+  //   if (!inProgress) return 'Start Recipe';
+  //   return (
+  //     Object
+  //       .keys(inProgress.meals)
+  //       .some((ID) => Number(ID) === Number(pathname.match(/(\d+)/)[0]))
+  //       ? 'Continue Recipe' : 'Start Recipe');
+  // };
 
   // Desenvolvido com o auxílio do Bryan da 22-B
   const renderCaroussel = () => {
@@ -132,21 +133,42 @@ export default function FoodDetail(recepieDetails, drinkData, pathname) {
 
   return (
     <section>
-      { console.log(strMeal)}
       { drinkData && renderMeal() }
-      <Link to={ `/foods/${pathname.match(/(\d+)/)[0]}/in-progress` }>
-        <button
-          data-testid="start-recipe-btn"
-          type="button"
-          className="startRecipeButton"
-          style={ {
-            display: doneRec && strMeal && !verifyLocalStorageDone() ? 'block' : 'hidden',
-          } }
-        >
-          { BtnText() }
-        </button>
-      </Link>
-
+      {/* { doneRec && strMeal && !verifyLocalStorageDone()
+      && (
+        <Link to={ `/foods/${pathname.match(/(\d+)/)[0]}/in-progress` }>
+          <button
+            data-testid="start-recipe-btn"
+            type="button"
+            className="startRecipeButton"
+            style={ {
+              bottom: 0,
+              position: 'fixed',
+            } }
+          >
+            { BtnText() }
+          </button>
+        </Link>)} */}
     </section>
   );
+
+  // return (
+  //   <section>
+  //     { console.log(strMeal)}
+  //     { drinkData && renderMeal() }
+  //     <Link to={ `/foods/${pathname.match(/(\d+)/)[0]}/in-progress` }>
+  //       <button
+  //         data-testid="start-recipe-btn"
+  //         type="button"
+  //         className="startRecipeButton"
+  //         style={ {
+  //           display: doneRec && strMeal && !verifyLocalStorageDone() ? 'block' : 'none',
+  //         } }
+  //       >
+  //         { BtnText() }
+  //       </button>
+  //     </Link>
+
+  //   </section>
+  // );
 }

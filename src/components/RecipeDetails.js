@@ -14,6 +14,8 @@ export default function RecipeDetails() {
   const [recepieDetails, setRecipeDetails] = useState(null);
   const [shared, setShared] = useState(false);
   const [favorite, setFavorite] = useState(false);
+  const [favoriteLS, setfavoriteLS] = useState(false);
+  const [andamento, setAndamento] = useState(undefined);
   const history = useHistory();
   const { location: { pathname } } = history;
   const mealEndpoint = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
@@ -23,6 +25,17 @@ export default function RecipeDetails() {
   const endpoint = pathRef === '/foods/' ? mealEndpoint : drinksEndpoint;
   const key = pathRef === '/foods/' ? 'meals' : 'drinks';
   const ID = pathname.split(pathRef)[1];
+  // const MEALS_OR_COCKTAILS = pathname.match(/foods\//i) ? 'meals' : 'cocktails';
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  // const doneRec = JSON.parse(localStorage.getItem('doneRecipes'));
+
+  const checkIfStored = () => {
+    // const InStore = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const stored = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    // if (InStore) setInProgress(InStore[MEALS_OR_COCKTAILS][ID] || []);
+    if (stored) setfavoriteLS(stored.some((ele) => (ele.id === ID)));
+  };
+
   useEffect(() => {
     const asyncFetch = async () => {
       try {
@@ -34,13 +47,34 @@ export default function RecipeDetails() {
         return error;
       }
     };
+    console.log(favoriteLS);
     asyncFetch();
+    checkIfStored();
+    setAndamento(inProgress?.meals[ID] || inProgress?.cocktails[ID]);
   }, []);
 
   const setFavoriteFunc = () => {
     setFavorite(!favorite);
     favoriteRecipe(recepieDetails, ToFavorite, ID);
   };
+
+  // const BtnText = () => {
+  //   const inProgress2 = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  //   const bool = Object
+  //     .keys(inProgress2[MEALS_OR_COCKTAILS])
+  //     .some((recipeID) => recipeID === ID);
+  //   return bool ? 'Continue Recipe' : 'Start Recipe';
+  // };
+
+  // const BtnText = () => (andamento ? 'Continue Recipe' : 'Start Recipe');
+
+  // const BtnText = () => (
+  //   Object
+  //     .keys(inProgress[MEALS_OR_COCKTAILS])
+  //     .some((recipeID) => Number(
+  //       key === 'meals' ? foodData.idMeal : drinkData.idDrink,
+  //     ) === Number(recipeID))
+  //     ? 'Continue Recipe' : 'Start Recipe');
 
   return (
     <div>
@@ -61,9 +95,8 @@ export default function RecipeDetails() {
         data-testid="favorite-btn"
         src={ favorite ? YEPFavorited : NONFavorite }
       >
-        {/* { favorite ? <img src={ YEPFavorited } alt="Black Heart" />
-          : <img src={ NONFavorite } alt="White Heart" /> } */}
-        Favoritar
+        { favorite ? <img src={ YEPFavorited } alt="Black Heart" />
+          : <img src={ NONFavorite } alt="White Heart" /> }
       </button>
       { pathname
         .includes('/foods/')
@@ -73,6 +106,20 @@ export default function RecipeDetails() {
         .includes('/drinks/')
         && recepieDetails
         ? DrinkDetail(recepieDetails, foodData, pathname) : null }
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+        className="startRecipeButton"
+        onClick={ () => (pathRef
+          && pathname
+          && history.push(`${pathRef}${ID}/in-progress`)) }
+        style={ {
+          bottom: 0,
+          position: 'fixed',
+        } }
+      >
+        { andamento ? 'Continue Recipe' : 'Start Recipe' }
+      </button>
     </div>
   );
 }
