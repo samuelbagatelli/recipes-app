@@ -11,7 +11,6 @@ function Drinks() {
   if (drinks.length === 1) return <Redirect to={ `/drinks/${drinks[0].idDrink}` } />;
 
   const MaxRecipes = 12;
-  console.log(drinks);
 
   return (
     <main>

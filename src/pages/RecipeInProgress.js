@@ -16,7 +16,7 @@ function RecipeInProgress() {
   const [ingredients, setIngredients] = useState([]);
 
   const type = location.pathname.match(/foods\//i) ? 'meals' : 'drinks';
-  const MEALS_OR_COCKTAILS = type === 'foods' ? 'meals' : 'cocktails';
+  const MEALS_OR_COCKTAILS = location.pathname.match(/foods\//i) ? 'meals' : 'cocktails';
   const ToFavorite = location.pathname.match(/foods\//i) ? 'food' : 'drink';
 
   const [ingredientDone, setingredientDone] = useState([]);

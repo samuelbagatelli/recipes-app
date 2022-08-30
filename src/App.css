@@ -9,8 +9,32 @@ fieldset {
   justify-content: center;
 }
 
+.alt-100 {
+  height: 100%;
+}
+
+/* Desenvolvido com o auxílio do Bryan da 22-B */
+.caroussel {
+  display: flex;
+  overflow-x: auto;
+  width: 360px;
+}
+
+.carousselImg {
+  width: 181px;
+}
+
 .tamanho {
   width: 15px;
+}
+
+.text {
+  font-size: x-small;
+}
+
+.startRecipeButton {
+  bottom: 0;
+  position: fixed;
 }
 
 .meals {

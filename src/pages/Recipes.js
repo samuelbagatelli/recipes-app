@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import RecipeDetails from '../components/RecipeDetails';
 import AppContext from '../context/AppContext';
 import Drinks from './Drinks';
 import Foods from './Foods';
@@ -18,6 +19,7 @@ export default function Recipes() {
     setDrinkFilteredData,
     filterValue,
     setFilterValue,
+    setSearching,
   } = useContext(AppContext);
   const { searching } = useContext(AppContext);
   const history = useHistory();
@@ -53,7 +55,11 @@ export default function Recipes() {
       return listData
         .filter((_recipe, index) => index < quantLimit)
         .map((recipe, index) => (
-          <Link to={ `/foods/${recipe.idMeal}` } key={ recipe.idMeal }>
+          <Link
+            to={ `/foods/${recipe.idMeal}` }
+            key={ recipe.idMeal }
+            onClick={ () => setSearching(true) }
+          >
             <section data-testid={ `${index}-recipe-card` }>
               <img
                 src={ recipe.strMealThumb }
@@ -108,27 +114,31 @@ export default function Recipes() {
       ));
   };
 
+  const renderAllButton = () => (
+    <button
+      type="button"
+      data-testid="All-category-filter"
+      onClick={ () => {
+        setFilterValue('');
+        setFilterActive(false);
+      } }
+    >
+      All
+    </button>
+  );
+
   return (
     <div>
       { pathname === '/foods' && <Foods /> }
       { pathname === '/drinks' && <Drinks /> }
       <div>
         {
-          drinkData && foodData && !searching ? renderRecipes() : null
+          drinkData && foodData && !searching ? renderRecipes() : RecipeDetails()
         }
       </div>
       <div>
-        { foodCategory && drinkCategory ? renderCategories() : null }
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => {
-            setFilterValue('');
-            setFilterActive(false);
-          } }
-        >
-          All
-        </button>
+        { foodCategory && drinkCategory && !searching ? renderCategories() : null }
+        { !searching && renderAllButton() }
       </div>
       { !pathname.includes('/foods/') && !pathname.includes('/drinks/')
         ? <Footer /> : null }

@@ -9,7 +9,7 @@ export default function useFetch(URL, setter, key) {
         setter(data[key]);
         return [data];
       } catch (error) {
-        console.log(error);
+        return error;
       }
     };
     asyncFetch();

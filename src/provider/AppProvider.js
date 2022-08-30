@@ -24,6 +24,7 @@ function AppProvider({ children }) {
   const [drinkCategory, setDrinkCategory] = useState(null);
   const [filterActive, setFilterActive] = useState(false);
   const [filterValue, setFilterValue] = useState('');
+  const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
   const [doneRecipesFiltered, setDoneRecipesFiltered] = useState(referenceData);
   const [mealInprogress, setmealInprogress] = useState([]);
@@ -90,9 +91,13 @@ function AppProvider({ children }) {
     passwordInput,
     setPasswordInput,
     foodData,
+    setFoodData,
     drinkData,
+    setDrinkData,
     foodCategory,
+    setFoodCategory,
     drinkCategory,
+    setDrinkCategory,
     filterActive,
     setFilterActive,
     foodFilteredData,
@@ -101,6 +106,8 @@ function AppProvider({ children }) {
     setDrinkFilteredData,
     filterValue,
     setFilterValue,
+    loading,
+    setLoading,
     copied,
     setCopied,
     doneRecipesFiltered,
