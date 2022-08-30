@@ -40,6 +40,6 @@ describe('Tests the Login page', () => {
     userEvent.type(passwordInput, 'senha1');
 
     const teste = localStorage.getItem('user');
-    expect(teste).toBe('{ "email": "teste@teste.com" }');
+    expect(teste).toBe('{"email":"teste@teste.com"}');
   });
 });

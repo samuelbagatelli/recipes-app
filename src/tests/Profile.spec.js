@@ -5,6 +5,12 @@ import App from '../App';
 import renderWithRouter from '../helpers/RenderWithRouter';
 
 describe('It tests the Profile page', () => {
+  beforeEach(() => {
+    const email = {
+      email: 'teste@teste.com',
+    };
+    localStorage.setItem('user', JSON.stringify(email));
+  });
   it('should render the page', () => {
     const { history } = renderWithRouter(<App />);
 

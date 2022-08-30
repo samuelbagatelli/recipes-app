@@ -41,7 +41,11 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    localStorage.setItem('user', `{ "email": "${emailInput}" }`);
+    const email = {
+      email: emailInput,
+    };
+
+    localStorage.setItem('user', JSON.stringify(email));
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
 

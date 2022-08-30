@@ -14,7 +14,7 @@ export default function RecipeDetails() {
   const [recepieDetails, setRecipeDetails] = useState(null);
   const [shared, setShared] = useState(false);
   const [favorite, setFavorite] = useState(false);
-  const [favoriteLS, setfavoriteLS] = useState(false);
+  // const [favoriteLS, setfavoriteLS] = useState(false);
   const [andamento, setAndamento] = useState(undefined);
   const history = useHistory();
   const { location: { pathname } } = history;
@@ -29,12 +29,12 @@ export default function RecipeDetails() {
   const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   // const doneRec = JSON.parse(localStorage.getItem('doneRecipes'));
 
-  const checkIfStored = () => {
-    // const InStore = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const stored = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    // if (InStore) setInProgress(InStore[MEALS_OR_COCKTAILS][ID] || []);
-    if (stored) setfavoriteLS(stored.some((ele) => (ele.id === ID)));
-  };
+  // const checkIfStored = () => {
+  // const InStore = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  // const stored = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  // if (InStore) setInProgress(InStore[MEALS_OR_COCKTAILS][ID] || []);
+  // if (stored) setfavoriteLS(stored.some((ele) => (ele.id === ID)));
+  // };
 
   useEffect(() => {
     const asyncFetch = async () => {
@@ -47,9 +47,8 @@ export default function RecipeDetails() {
         return error;
       }
     };
-    console.log(favoriteLS);
     asyncFetch();
-    checkIfStored();
+    // checkIfStored();
     setAndamento(inProgress?.meals[ID] || inProgress?.cocktails[ID]);
   }, []);
 
