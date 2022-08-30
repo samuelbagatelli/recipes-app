@@ -31,8 +31,8 @@ export default function DrinkDetail(recepieDetails, foodData, pathname) {
   const quantArray = copy2
     .splice(firstQuant, ingredientQuant);
 
-  const verifyLocalStorageDone = (recipeName) => doneRec
-    .some(({ name }) => recipeName === name);
+  const verifyLocalStorageDone = () => doneRec
+    .some(({ name }) => strDrink === name);
 
   const BtnText = () => {
     if (!inProgress) return 'Start Recipe';
@@ -129,7 +129,7 @@ export default function DrinkDetail(recepieDetails, foodData, pathname) {
           className="startRecipeButton"
           style={ {
             display: doneRec
-              && strDrink && !verifyLocalStorageDone() ? 'block' : 'none',
+              && strDrink && !verifyLocalStorageDone() ? 'block' : 'hidden',
           } }
         >
           { BtnText() }

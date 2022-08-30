@@ -34,7 +34,6 @@ export default function FoodDetail(recepieDetails, drinkData, pathname) {
   const verifyLocalStorageDone = () => {
     const teste = doneRec
       .some(({ name }) => strMeal === name);
-    console.log(teste);
     return teste;
   };
 
@@ -141,7 +140,7 @@ export default function FoodDetail(recepieDetails, drinkData, pathname) {
           type="button"
           className="startRecipeButton"
           style={ {
-            display: doneRec && strMeal && !verifyLocalStorageDone() ? 'block' : 'none',
+            display: doneRec && strMeal && !verifyLocalStorageDone() ? 'block' : 'hidden',
           } }
         >
           { BtnText() }
